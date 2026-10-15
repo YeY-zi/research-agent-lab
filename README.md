@@ -107,7 +107,16 @@ LLM 每轮选择工具名与参数，工具返回结果写回上下文。缺失�
 
 ## 上传到你的 GitHub
 
-当前项目尚未上传。账号已识别为 `YeY-zi`，建议新建**空仓库** `research-agent-lab`，不要勾选自动添加 README。随后在项目根目录执行：
+项目仓库：https://github.com/YeY-zi/research-agent-lab 。从 GitHub 获取并运行：
+
+```bash
+git clone https://github.com/YeY-zi/research-agent-lab.git
+cd research-agent-lab
+python -m unittest discover -s tests -v
+python -m research_agent.cli --out runs/my-first-demo
+```
+
+如需发布到其他账号，先新建空仓库，再修改以下 remote 地址执行：
 
 ```bash
 git init
