@@ -1,5 +1,6 @@
 """Real local Qwen inference; no API key and no mocked model responses."""
 import json
+from pathlib import Path
 import re
 import time
 from .agent import SYSTEM
@@ -36,15 +37,18 @@ class LocalQwen:
         import torch
         import transformers
         from transformers import AutoTokenizer, AutoModelForCausalLM
+        from huggingface_hub import snapshot_download
         torch.set_num_threads(threads)
         torch.manual_seed(0)
         self.torch = torch
         started = time.perf_counter()
-        self.tokenizer = AutoTokenizer.from_pretrained(model,revision=revision,cache_dir=cache_dir)
-        self.model = AutoModelForCausalLM.from_pretrained(model,revision=revision,cache_dir=cache_dir,dtype=torch.float32)
+        snapshot = snapshot_download(model,revision=revision,cache_dir=cache_dir,
+            allow_patterns=['*.json','*.safetensors','*.jinja','merges.txt','vocab.json'])
+        self.tokenizer = AutoTokenizer.from_pretrained(snapshot,local_files_only=True)
+        self.model = AutoModelForCausalLM.from_pretrained(snapshot,local_files_only=True,dtype=torch.float32)
         self.model.eval()
         self.metadata = {'backend':'transformers_local','model':model,
-            'revision':self.model.config._commit_hash,'dtype':'float32','device':'cpu','threads':threads,
+            'revision':Path(snapshot).name,'dtype':'float32','device':'cpu','threads':threads,
             'torch':torch.__version__,'transformers':transformers.__version__,
             'load_seconds':time.perf_counter()-started,'decoding':'greedy','enable_thinking':False}
 

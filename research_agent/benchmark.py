@@ -125,7 +125,12 @@ def main():
     metadata={'utc_started':datetime.now(timezone.utc).isoformat(),'tasks':tasks,
         'python':platform.python_version(),
         'code_revision':subprocess.run(['git','rev-parse','HEAD'],capture_output=True,text=True).stdout.strip()}
-    backend=LocalQwen(revision=args.revision,cache_dir=args.model_cache)
+    try:
+        backend=LocalQwen(revision=args.revision,cache_dir=args.model_cache)
+    except Exception as exc:
+        metadata.update(status='setup_failed',error=f'{type(exc).__name__}: {exc}')
+        (out/'benchmark.json').write_text(json.dumps(metadata,indent=2),encoding='utf-8')
+        raise
     metadata['model']=backend.metadata
     runs=[]
     for task in tasks:
