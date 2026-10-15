@@ -1,0 +1,5 @@
+[
+  {"id":"patchtst_s42_h6","paper_query":"PatchTST","config":{"seed":42,"context":24,"horizon":6,"ridge":1.0}},
+  {"id":"chronos_s43_h12","paper_query":"Chronos time series","config":{"seed":43,"context":24,"horizon":12,"ridge":1.0}},
+  {"id":"timesnet_s44_c12","paper_query":"TimesNet","config":{"seed":44,"context":12,"horizon":6,"ridge":0.1}}
+]

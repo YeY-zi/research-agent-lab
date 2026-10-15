@@ -1,4 +1,5 @@
 import json
+import time
 import re
 import urllib.parse
 import urllib.request
@@ -8,11 +9,11 @@ from .experiment import run, validate
 PAPERS = [
     {'id':'2211.14730','title':'A Time Series is Worth 64 Words: Long-term Forecasting with Transformers',
      'url':'https://arxiv.org/abs/2211.14730',
-     'text':'This bundled human-written method note describes PatchTST: partition time series into patches and use channel-independent Transformer modeling. It is not a fetched abstract.',
+     'text':'This bundled project method note describes PatchTST: partition time series into patches and use channel-independent Transformer modeling. It is not a fetched abstract.',
      'source':'bundled_method_note_not_live_search'},
     {'id':'2403.07815','title':'Chronos: Learning the Language of Time Series',
      'url':'https://arxiv.org/abs/2403.07815',
-     'text':'This bundled human-written method note describes Chronos: scale and quantize time series into tokens, then train language models for probabilistic forecasting. It is not a fetched abstract.',
+     'text':'This bundled project method note describes Chronos: scale and quantize time series into tokens, then train language models for probabilistic forecasting. It is not a fetched abstract.',
      'source':'bundled_method_note_not_live_search'}]
 
 
@@ -87,8 +88,24 @@ class ToolSession:
         self.live_search = live_search
         self.state = {}
         self.trace = []
+        self.attempts = []
+        self.model_trace = []
 
     def call(self,name,arguments):
+        started = time.perf_counter()
+        attempt = dict(tool=name,arguments=arguments)
+        try:
+            result = self._execute(name,arguments)
+            attempt['ok'] = True
+            return result
+        except Exception as exc:
+            attempt.update(ok=False,error=f'{type(exc).__name__}: {exc}')
+            raise
+        finally:
+            attempt['seconds'] = time.perf_counter()-started
+            self.attempts.append(attempt)
+
+    def _execute(self,name,arguments):
         specifications = {s['name']:s for s in SPECS}
         if name not in specifications: raise ValueError('Unknown tool')
         schema = specifications[name]['inputSchema']

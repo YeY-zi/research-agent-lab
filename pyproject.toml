@@ -9,6 +9,9 @@ description = "Auditable tool-using research agent with a stdio MCP server"
 requires-python = ">=3.10"
 dependencies = []
 
+[project.optional-dependencies]
+local = ["torch>=2.2,<3", "transformers>=4.51,<6"]
+
 [project.scripts]
 research-agent = "research_agent.cli:main"
 research-mcp = "research_agent.mcp:main"

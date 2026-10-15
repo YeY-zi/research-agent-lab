@@ -6,6 +6,8 @@ from unittest.mock import patch
 from research_agent.agent import demo, llm
 from research_agent.experiment import run, validate
 from research_agent.tools import ToolSession, SPECS
+from research_agent.local_llm import parse_calls
+from research_agent.mcp_client import MCPClient
 
 
 class ResearchTests(unittest.TestCase):
@@ -53,6 +55,26 @@ class ResearchTests(unittest.TestCase):
             session = ToolSession()
             llm(session,'forecasting','mock-model')
         self.assertIn('report',session.state)
+
+    def test_local_output_parser(self):
+        valid = '<tool_call>{"name":"paper_search","arguments":{"query":"PatchTST"}}</tool_call>'
+        self.assertEqual(parse_calls(valid)['name'],'paper_search')
+        for invalid in ['hello', valid+valid, '<tool_call>{"name":"python_experiment","arguments":"shell"}</tool_call>']:
+            with self.assertRaises(ValueError): parse_calls(invalid)
+
+    def test_mcp_client_workflow_and_errors(self):
+        client = MCPClient()
+        try:
+            with self.assertRaises(ValueError): client.call('shell',{'command':'echo test'})
+            demo(client,'PatchTST')
+            self.assertIn('report',client.state)
+            self.assertEqual(len(client.trace),6)
+            self.assertEqual(len(client.attempts),7)
+            self.assertFalse(client.attempts[0]['ok'])
+            self.assertTrue(all(a['ok'] for a in client.attempts[1:]))
+            self.assertEqual(client.state['result']['config']['seed'],42)
+        finally:
+            client.close()
 
     def test_stdio_mcp_actual_subprocess(self):
         requests = [{'jsonrpc':'2.0','id':1,'method':'initialize','params':{'protocolVersion':'2024-11-05'}},

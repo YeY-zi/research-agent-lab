@@ -13,9 +13,9 @@ Use seed 42, context 24, horizon 6, ridge 1.0 unless requested otherwise.
 A final report must be created by experiment_summary. Do not invent results.'''
 
 
-def demo(session, query):
+def demo(session, query, config=None):
     for name,args in [('paper_search',{'query':query}),('method_extraction',{}),
-        ('configure_experiment',{'seed':42,'context':24,'horizon':6,'ridge':1.0}),
+        ('configure_experiment',config or {'seed':42,'context':24,'horizon':6,'ridge':1.0}),
         ('python_experiment',{}),('evaluation',{}),('experiment_summary',{})]:
         session.call(name,args)
 
@@ -37,6 +37,10 @@ def llm(session,query,model,max_steps=12):
         with urllib.request.urlopen(request,timeout=90) as response:
             payload = json.load(response)
         msg = payload['choices'][0]['message']
+        usage = payload.get('usage',{})
+        session.model_trace.append({'backend':'openai_compatible','model':payload.get('model',model),
+            'prompt_tokens':usage.get('prompt_tokens'),'completion_tokens':usage.get('completion_tokens'),
+            'tool_calls':msg.get('tool_calls',[]),'raw_content':msg.get('content')})
         # Keep only protocol fields, not vendor-specific response metadata.
         assistant = {'role':'assistant','content':msg.get('content'),'tool_calls':msg.get('tool_calls',[])}
         messages.append(assistant)
