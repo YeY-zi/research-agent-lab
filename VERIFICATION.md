@@ -27,6 +27,11 @@
 - 真实 LLM API 调用、模型规划成功率、token 成本统计。
 - 桌面 MCP 客户端兼容性；当前只有自有 stdio 协议集成测试。
 - 论文全文解析、准确超参数提取、公开数据 benchmark 和论文原始指标复现。
-- GitHub Actions 远端执行；只配置了 workflow。
+
 
 初次联网被命令网络沙箱拒绝，授权联网重试成功。失败记录保存在本地 runs/，未当作成功示例。
+
+## GitHub 验证
+
+项目已上传 https://github.com/YeY-zi/research-agent-lab 。GitHub Actions 在 Python 3.10 和 3.12 上的测试及 demo 均通过：
+https://github.com/YeY-zi/research-agent-lab/actions/runs/38735757598
