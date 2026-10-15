@@ -1,0 +1,8 @@
+{
+  "mode": "demo",
+  "live_search": true,
+  "query": "time series forecasting transformer",
+  "model": null,
+  "python": "3.12.14",
+  "status": "completed"
+}
