@@ -1,0 +1,351 @@
+[
+  {
+    "direction": "request",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 1,
+      "method": "initialize",
+      "params": {
+        "protocolVersion": "2024-11-05",
+        "capabilities": {},
+        "clientInfo": {
+          "name": "research-agent-lab-client",
+          "version": "0.2.0"
+        }
+      }
+    }
+  },
+  {
+    "direction": "response",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 1,
+      "result": {
+        "protocolVersion": "2024-11-05",
+        "capabilities": {
+          "tools": {
+            "listChanged": false
+          }
+        },
+        "serverInfo": {
+          "name": "research-agent-lab",
+          "version": "0.1.0"
+        }
+      }
+    }
+  },
+  {
+    "direction": "request",
+    "message": {
+      "jsonrpc": "2.0",
+      "method": "notifications/initialized"
+    }
+  },
+  {
+    "direction": "request",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 2,
+      "method": "tools/list",
+      "params": {}
+    }
+  },
+  {
+    "direction": "response",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 2,
+      "result": {
+        "tools": [
+          {
+            "name": "paper_search",
+            "description": "Search arXiv or explicitly labeled offline method notes.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "query"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "method_extraction",
+            "description": "Extract cited evidence from previously searched papers.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {},
+              "required": [],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "configure_experiment",
+            "description": "Configure a fixed synthetic ridge-AR baseline experiment. Does not reproduce papers.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "seed": {
+                  "type": "integer"
+                },
+                "context": {
+                  "type": "integer"
+                },
+                "horizon": {
+                  "type": "integer"
+                },
+                "ridge": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "seed",
+                "context",
+                "horizon",
+                "ridge"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "python_experiment",
+            "description": "Run the configured allowlisted Python experiment.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {},
+              "required": [],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "evaluation",
+            "description": "Compute comparisons from actual measured results.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {},
+              "required": [],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "experiment_summary",
+            "description": "Render a report using actual citations and measured metrics.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {},
+              "required": [],
+              "additionalProperties": false
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "direction": "request",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 3,
+      "method": "tools/call",
+      "params": {
+        "name": "paper_search",
+        "arguments": {
+          "query": "Chronos time series"
+        }
+      }
+    }
+  },
+  {
+    "direction": "response",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 3,
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "[{\"id\": \"2403.07815v3\", \"title\": \"Chronos: Learning the Language of Time Series\", \"url\": \"http://arxiv.org/abs/2403.07815v3\", \"text\": \"We introduce Chronos, a simple yet effective framework for pretrained probabilistic time series models. Chronos tokenizes time series values using scaling and quantization into a fixed vocabulary and trains existing transformer-based language model architectures on these tokenized time series via the cross-entropy loss. We pretrained Chronos models based on the T5 family (ranging from 20M to 710M parameters) on a large collection of publicly available datasets, complemented by a synthetic dataset that we generated via Gaussian processes to improve generalization. In a comprehensive benchmark consisting of 42 datasets, and comprising both classical local models and deep learning methods, we show that Chronos models: (a) significantly outperform other methods on datasets that were part of the training corpus; and (b) have comparable and occasionally superior zero-shot performance on new datasets, relative to methods that were trained specifically on them. Our results demonstrate that Chronos models can leverage time series data from diverse domains to improve zero-shot accuracy on unseen forecasting tasks, positioning pretrained models as a viable tool to greatly simplify forecasting pipelines.\", \"source\": \"live_arxiv_abstract\"}, {\"id\": \"2303.14295v1\", \"title\": \"Clustering Multivariate Time Series using Energy Distance\", \"url\": \"http://arxiv.org/abs/2303.14295v1\", \"text\": \"A novel methodology is proposed for clustering multivariate time series data using energy distance defined in Székely and Rizzo (2013). Specifically, a dissimilarity matrix is formed using the energy distance statistic to measure separation between the finite dimensional distributions for the component time series. Once the pairwise dissimilarity matrix is calculated, a hierarchical clustering method is then applied to obtain the dendrogram. This procedure is completely nonparametric as the dissimilarities between stationary distributions are directly calculated without making any model assumptions. In order to justify this procedure, asymptotic properties of the energy distance estimates are derived for general stationary and ergodic time series. The method is illustrated in a simulation study for various component time series that are either linear or nonlinear. Finally the methodology is applied to two examples; one involves GDP of selected countries and the other is population size of various states in the U.S.A. in the years 1900 -1999.\", \"source\": \"live_arxiv_abstract\"}, {\"id\": \"9810059v1\", \"title\": \"Space-time distributions\", \"url\": \"http://arxiv.org/abs/gr-qc/9810059v1\", \"text\": \"The space-time foliation Sigma compatible with the gravitational field g on a 4-manifold M determines a fibration pi of M, pi : M -> N is a surjective submersion over the 1-dimensional leaves space N. M is then written as a disjoint union of the leaves of Sigma, which are 3-dimensional spacelike surfaces on M. The decomposition, TM=Sigma + T^0 M, also implies that we can define a lift of the curves on N to curves (non-spacelike) on M. The stable causality condition M coincides with Sigma being a causal space-time distribution, generated by an exact timelike 1-form omega^0 = dt where t is some real function on M. In this case M is written as a disjoint union of a family of spacelike 3-surfaces of constant t, which cover D^+(S) of a initial 3-surface S of M.\", \"source\": \"live_arxiv_abstract\"}]"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "direction": "request",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 4,
+      "method": "tools/call",
+      "params": {
+        "name": "method_extraction",
+        "arguments": {}
+      }
+    }
+  },
+  {
+    "direction": "response",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 4,
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "[{\"paper_id\": \"2403.07815v3\", \"title\": \"Chronos: Learning the Language of Time Series\", \"url\": \"http://arxiv.org/abs/2403.07815v3\", \"source\": \"live_arxiv_abstract\", \"method_evidence\": \"We introduce Chronos, a simple yet effective framework for pretrained probabilistic time series models. Chronos tokenizes time series values using scaling and quantization into a fixed vocabulary and trains existing transformer-based language model architectures on these tokenized time series via the cross-entropy loss. We pretrained Chronos models based on the T5 family (ranging from 20M to 710M parameters) on a large collection of publicly available datasets, complemented by a synthetic dataset that we generated via Gaussian processes to improve generalization. In a comprehensive benchmark consisting of 42 datasets, and comprising both classical local models and deep learning methods, we show that Chronos models: (a) significantly outperform other methods on datasets that were part of the training corpus; and (b) have comparable and occasionally superior zero-shot performance on new datasets, relative to methods that were trained specifically on them. Our results demonstrate that Chronos models can leverage time series data from diverse domains to improve zero-shot accuracy on unseen forecasting tasks, positioning pretrained models as a viable tool to greatly simplify forecasting pipelines.\", \"extraction\": \"verbatim abstract/note; no full-text reasoning\", \"missing\": [\"training recipe\", \"verified hyperparameters\", \"official code commit\"]}, {\"paper_id\": \"2303.14295v1\", \"title\": \"Clustering Multivariate Time Series using Energy Distance\", \"url\": \"http://arxiv.org/abs/2303.14295v1\", \"source\": \"live_arxiv_abstract\", \"method_evidence\": \"A novel methodology is proposed for clustering multivariate time series data using energy distance defined in Székely and Rizzo (2013). Specifically, a dissimilarity matrix is formed using the energy distance statistic to measure separation between the finite dimensional distributions for the component time series. Once the pairwise dissimilarity matrix is calculated, a hierarchical clustering method is then applied to obtain the dendrogram. This procedure is completely nonparametric as the dissimilarities between stationary distributions are directly calculated without making any model assumptions. In order to justify this procedure, asymptotic properties of the energy distance estimates are derived for general stationary and ergodic time series. The method is illustrated in a simulation study for various component time series that are either linear or nonlinear. Finally the methodology is applied to two examples; one involves GDP of selected countries and the other is population size of various states in the U.S.A. in the years 1900 -1999.\", \"extraction\": \"verbatim abstract/note; no full-text reasoning\", \"missing\": [\"training recipe\", \"verified hyperparameters\", \"official code commit\"]}, {\"paper_id\": \"9810059v1\", \"title\": \"Space-time distributions\", \"url\": \"http://arxiv.org/abs/gr-qc/9810059v1\", \"source\": \"live_arxiv_abstract\", \"method_evidence\": \"The space-time foliation Sigma compatible with the gravitational field g on a 4-manifold M determines a fibration pi of M, pi : M -> N is a surjective submersion over the 1-dimensional leaves space N. M is then written as a disjoint union of the leaves of Sigma, which are 3-dimensional spacelike surfaces on M. The decomposition, TM=Sigma + T^0 M, also implies that we can define a lift of the curves on N to curves (non-spacelike) on M. The stable causality condition M coincides with Sigma being a causal space-time distribution, generated by an exact timelike 1-form omega^0 = dt where t is some real function on M. In this case M is written as a disjoint union of a family of spacelike 3-surfaces of constant t, which cover D^+(S) of a initial 3-surface S of M.\", \"extraction\": \"verbatim abstract/note; no full-text reasoning\", \"missing\": [\"training recipe\", \"verified hyperparameters\", \"official code commit\"]}]"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "direction": "request",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 5,
+      "method": "tools/call",
+      "params": {
+        "name": "configure_experiment",
+        "arguments": {
+          "seed": 43,
+          "context": 24,
+          "horizon": 12,
+          "ridge": 1.0
+        }
+      }
+    }
+  },
+  {
+    "direction": "response",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 5,
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"seed\": 43, \"context\": 24, \"horizon\": 12, \"ridge\": 1.0}"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "direction": "request",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 6,
+      "method": "tools/call",
+      "params": {
+        "name": "python_experiment",
+        "arguments": {}
+      }
+    }
+  },
+  {
+    "direction": "response",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 6,
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"dataset\": \"synthetic_periodic_v1\", \"config\": {\"seed\": 43, \"context\": 24, \"horizon\": 12, \"ridge\": 1.0}, \"normalization\": {\"mean\": 0.01564372353083175, \"std\": 0.7424408728041226}, \"split_samples\": {\"train\": 1080, \"val\": 360, \"test\": 360}, \"windows\": {\"train\": 88, \"val\": 28, \"test\": 28}, \"validation\": {\"persistence\": {\"mse\": 0.987316869339273, \"mae\": 0.8251945402846972}, \"ridge_ar\": {\"mse\": 0.016428251217572153, \"mae\": 0.10227310568727169}}, \"test\": {\"persistence\": {\"mse\": 0.9321371770560842, \"mae\": 0.7821486961353725}, \"ridge_ar\": {\"mse\": 0.014311248488888187, \"mae\": 0.09605000528303059}}, \"selected_on_validation\": \"ridge_ar\", \"limitations\": [\"Synthetic data only; not a paper reproduction.\", \"Single seed; no statistical significance claim.\", \"Ridge autoregression is not PatchTST or another foundation model.\"]}"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "direction": "request",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 7,
+      "method": "tools/call",
+      "params": {
+        "name": "experiment_summary",
+        "arguments": {}
+      }
+    }
+  },
+  {
+    "direction": "response",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 7,
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "KeyError: 'evaluation'"
+          }
+        ],
+        "isError": true
+      }
+    }
+  },
+  {
+    "direction": "request",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 8,
+      "method": "tools/call",
+      "params": {
+        "name": "evaluation",
+        "arguments": {}
+      }
+    }
+  },
+  {
+    "direction": "response",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 8,
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"mse_reduction_vs_persistence\": 0.9846468429313305, \"selected_on_validation\": \"ridge_ar\", \"scope\": \"Only this synthetic dataset and seed; unrelated to cited paper performance.\"}"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "direction": "request",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 9,
+      "method": "tools/call",
+      "params": {
+        "name": "experiment_summary",
+        "arguments": {}
+      }
+    }
+  },
+  {
+    "direction": "response",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 9,
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "\"# Research Agent 实验报告\\n\\n本次运行真实执行了 Python 合成数据实验；论文笔记用于研究背景，未复现所引用论文模型。\\n\\n## 文献来源\\n\\n- [Chronos: Learning the Language of Time Series](http://arxiv.org/abs/2403.07815v3) — `live_arxiv_abstract`\\n  - 方法证据：We introduce Chronos, a simple yet effective framework for pretrained probabilistic time series models. Chronos tokenizes time series values using scaling and quantization into a fixed vocabulary and trains existing transformer-based language model architectures on these tokenized time series via the cross-entropy loss. We pretrained Chronos models based on the T5 family (ranging from 20M to 710M parameters) on a large collection of publicly available datasets, complemented by a synthetic dataset that we generated via Gaussian processes to improve generalization. In a comprehensive benchmark consisting of 42 datasets, and comprising both classical local models and deep learning methods, we show that Chronos models: (a) significantly outperform other methods on datasets that were part of the training corpus; and (b) have comparable and occasionally superior zero-shot performance on new datasets, relative to methods that were trained specifically on them. Our results demonstrate that Chronos models can leverage time series data from diverse domains to improve zero-shot accuracy on unseen forecasting tasks, positioning pretrained models as a viable tool to greatly simplify forecasting pipelines.\\n- [Clustering Multivariate Time Series using Energy Distance](http://arxiv.org/abs/2303.14295v1) — `live_arxiv_abstract`\\n  - 方法证据：A novel methodology is proposed for clustering multivariate time series data using energy distance defined in Székely and Rizzo (2013). Specifically, a dissimilarity matrix is formed using the energy distance statistic to measure separation between the finite dimensional distributions for the component time series. Once the pairwise dissimilarity matrix is calculated, a hierarchical clustering method is then applied to obtain the dendrogram. This procedure is completely nonparametric as the dissimilarities between stationary distributions are directly calculated without making any model assumptions. In order to justify this procedure, asymptotic properties of the energy distance estimates are derived for general stationary and ergodic time series. The method is illustrated in a simulation study for various component time series that are either linear or nonlinear. Finally the methodology is applied to two examples; one involves GDP of selected countries and the other is population size of various states in the U.S.A. in the years 1900 -1999.\\n- [Space-time distributions](http://arxiv.org/abs/gr-qc/9810059v1) — `live_arxiv_abstract`\\n  - 方法证据：The space-time foliation Sigma compatible with the gravitational field g on a 4-manifold M determines a fibration pi of M, pi : M -> N is a surjective submersion over the 1-dimensional leaves space N. M is then written as a disjoint union of the leaves of Sigma, which are 3-dimensional spacelike surfaces on M. The decomposition, TM=Sigma + T^0 M, also implies that we can define a lift of the curves on N to curves (non-spacelike) on M. The stable causality condition M coincides with Sigma being a causal space-time distribution, generated by an exact timelike 1-form omega^0 = dt where t is some real function on M. In this case M is written as a disjoint union of a family of spacelike 3-surfaces of constant t, which cover D^+(S) of a initial 3-surface S of M.\\n\\n## 实验配置\\n\\n```json\\n{\\n  \\\"seed\\\": 43,\\n  \\\"context\\\": 24,\\n  \\\"horizon\\\": 12,\\n  \\\"ridge\\\": 1.0\\n}\\n```\\n\\n数据：`synthetic_periodic_v1`；先切分时间轴，再构造窗口；仅用训练段拟合归一化。\\n窗口数量：{'train': 88, 'val': 28, 'test': 28}。\\n\\n| 模型 | Validation MSE | Test MSE | Test MAE |\\n|---|---:|---:|---:|\\n| persistence | 0.987317 | 0.932137 | 0.782149 |\\n| ridge_ar | 0.016428 | 0.014311 | 0.096050 |\\n\\n验证集选出的模型：`ridge_ar`。\\nRidge AR 相对 persistence 的测试 MSE 降幅：98.46%。\\n\\n## 局限\\n\\n- Synthetic data only; not a paper reproduction.\\n- Single seed; no statistical significance claim.\\n- Ridge autoregression is not PatchTST or another foundation model.\\n\""
+          }
+        ],
+        "isError": false
+      }
+    }
+  }
+]

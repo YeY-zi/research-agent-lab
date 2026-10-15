@@ -1,0 +1,49 @@
+{
+  "dataset": "synthetic_periodic_v1",
+  "config": {
+    "seed": 42,
+    "context": 24,
+    "horizon": 6,
+    "ridge": 1.0
+  },
+  "normalization": {
+    "mean": 0.012721635742742864,
+    "std": 0.7465010043534175
+  },
+  "split_samples": {
+    "train": 1080,
+    "val": 360,
+    "test": 360
+  },
+  "windows": {
+    "train": 176,
+    "val": 56,
+    "test": 56
+  },
+  "validation": {
+    "persistence": {
+      "mse": 0.4051505898455093,
+      "mae": 0.48168623805519367
+    },
+    "ridge_ar": {
+      "mse": 0.013329983674912494,
+      "mae": 0.09196850277717768
+    }
+  },
+  "test": {
+    "persistence": {
+      "mse": 0.4269270926177819,
+      "mae": 0.5094125021966802
+    },
+    "ridge_ar": {
+      "mse": 0.014484551638720653,
+      "mae": 0.09775036291566568
+    }
+  },
+  "selected_on_validation": "ridge_ar",
+  "limitations": [
+    "Synthetic data only; not a paper reproduction.",
+    "Single seed; no statistical significance claim.",
+    "Ridge autoregression is not PatchTST or another foundation model."
+  ]
+}

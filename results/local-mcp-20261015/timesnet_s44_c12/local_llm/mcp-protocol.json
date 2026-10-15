@@ -1,0 +1,351 @@
+[
+  {
+    "direction": "request",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 1,
+      "method": "initialize",
+      "params": {
+        "protocolVersion": "2024-11-05",
+        "capabilities": {},
+        "clientInfo": {
+          "name": "research-agent-lab-client",
+          "version": "0.2.0"
+        }
+      }
+    }
+  },
+  {
+    "direction": "response",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 1,
+      "result": {
+        "protocolVersion": "2024-11-05",
+        "capabilities": {
+          "tools": {
+            "listChanged": false
+          }
+        },
+        "serverInfo": {
+          "name": "research-agent-lab",
+          "version": "0.1.0"
+        }
+      }
+    }
+  },
+  {
+    "direction": "request",
+    "message": {
+      "jsonrpc": "2.0",
+      "method": "notifications/initialized"
+    }
+  },
+  {
+    "direction": "request",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 2,
+      "method": "tools/list",
+      "params": {}
+    }
+  },
+  {
+    "direction": "response",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 2,
+      "result": {
+        "tools": [
+          {
+            "name": "paper_search",
+            "description": "Search arXiv or explicitly labeled offline method notes.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "query"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "method_extraction",
+            "description": "Extract cited evidence from previously searched papers.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {},
+              "required": [],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "configure_experiment",
+            "description": "Configure a fixed synthetic ridge-AR baseline experiment. Does not reproduce papers.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {
+                "seed": {
+                  "type": "integer"
+                },
+                "context": {
+                  "type": "integer"
+                },
+                "horizon": {
+                  "type": "integer"
+                },
+                "ridge": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "seed",
+                "context",
+                "horizon",
+                "ridge"
+              ],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "python_experiment",
+            "description": "Run the configured allowlisted Python experiment.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {},
+              "required": [],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "evaluation",
+            "description": "Compute comparisons from actual measured results.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {},
+              "required": [],
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "experiment_summary",
+            "description": "Render a report using actual citations and measured metrics.",
+            "inputSchema": {
+              "type": "object",
+              "properties": {},
+              "required": [],
+              "additionalProperties": false
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "direction": "request",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 3,
+      "method": "tools/call",
+      "params": {
+        "name": "paper_search",
+        "arguments": {
+          "query": "TimesNet"
+        }
+      }
+    }
+  },
+  {
+    "direction": "response",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 3,
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "[{\"id\": \"2210.02186v3\", \"title\": \"TimesNet: Temporal 2D-Variation Modeling for General Time Series Analysis\", \"url\": \"http://arxiv.org/abs/2210.02186v3\", \"text\": \"Time series analysis is of immense importance in extensive applications, such as weather forecasting, anomaly detection, and action recognition. This paper focuses on temporal variation modeling, which is the common key problem of extensive analysis tasks. Previous methods attempt to accomplish this directly from the 1D time series, which is extremely challenging due to the intricate temporal patterns. Based on the observation of multi-periodicity in time series, we ravel out the complex temporal variations into the multiple intraperiod- and interperiod-variations. To tackle the limitations of 1D time series in representation capability, we extend the analysis of temporal variations into the 2D space by transforming the 1D time series into a set of 2D tensors based on multiple periods. This transformation can embed the intraperiod- and interperiod-variations into the columns and rows of the 2D tensors respectively, making the 2D-variations to be easily modeled by 2D kernels. Technically, we propose the TimesNet with TimesBlock as a task-general backbone for time series analysis. TimesBlock can discover the multi-periodicity adaptively and extract the complex temporal variations from transformed 2D tensors by a parameter-efficient inception block. Our proposed TimesNet achieves consistent state-of-the-art in five mainstream time series analysis tasks, including short- and long-term forecasting, imputation, classification, and anomaly detection. Code is available at this repository: https://github.com/thuml/TimesNet.\", \"source\": \"live_arxiv_abstract\"}, {\"id\": \"2507.20008v1\", \"title\": \"Robust Taxi Fare Prediction Under Noisy Conditions: A Comparative Study of GAT, TimesNet, and XGBoost\", \"url\": \"http://arxiv.org/abs/2507.20008v1\", \"text\": \"Precise fare prediction is crucial in ride-hailing platforms and urban mobility systems. This study examines three machine learning models-Graph Attention Networks (GAT), XGBoost, and TimesNet to evaluate their predictive capabilities for taxi fares using a real-world dataset comprising over 55 million records. Both raw (noisy) and denoised versions of the dataset are analyzed to assess the impact of data quality on model performance. The study evaluated the models along multiple axes, including predictive accuracy, calibration, uncertainty estimation, out-of-distribution (OOD) robustness, and feature sensitivity. We also explore pre-processing strategies, including KNN imputation, Gaussian noise injection, and autoencoder-based denoising. The study reveals critical differences between classical and deep learning models under realistic conditions, offering practical guidelines for building robust and scalable models in urban fare prediction systems.\", \"source\": \"live_arxiv_abstract\"}, {\"id\": \"2512.04694v3\", \"title\": \"TimesNet-Gen: Deep Learning-based Site Specific Strong Motion Generation\", \"url\": \"http://arxiv.org/abs/2512.04694v3\", \"text\": \"Effective earthquake risk reduction relies on accurate site-specific evaluations, which require models capable of representing the influence of local site conditions on ground motion characteristics. We address strong ground motion generation from time-domain accelerometer records and introduce the TimesNet-Gen, a deep generative framework. In this framework, site-specific generation is directly achieved through a station-restricted, Dirichlet-based latent space resampling strategy, without relying on explicit conditioning inputs or dimensionality reduction. Pre-trained on the AFAD dataset via self-supervised learning, the frozen model demonstrates robust cross-regional generalization by successfully generating station-specific NGA-West2 records without any fine-tuning. Model performance is evaluated by comparing the distributions of generated and real records in the log-HVSR space, alongside the joint analysis of peak ground acceleration and fundamental site frequency. As a baseline, we construct a spectrogram-based conditional variational autoencoder (CVAE) explicitly formulated for station-specific latent space modeling. The results show strong station-wise alignment, consistent cross-regional ground motion synthesis, and a favorable comparison with a spectrogram-based conditional variational autoencoder baseline, demonstrating that the model empirically maintains the essential physical coupling between frequency content and peak amplitude. Our codes are available via https://github.com/brsylmz23/TimesNet-Gen.\", \"source\": \"live_arxiv_abstract\"}]"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "direction": "request",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 4,
+      "method": "tools/call",
+      "params": {
+        "name": "method_extraction",
+        "arguments": {}
+      }
+    }
+  },
+  {
+    "direction": "response",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 4,
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "[{\"paper_id\": \"2210.02186v3\", \"title\": \"TimesNet: Temporal 2D-Variation Modeling for General Time Series Analysis\", \"url\": \"http://arxiv.org/abs/2210.02186v3\", \"source\": \"live_arxiv_abstract\", \"method_evidence\": \"Time series analysis is of immense importance in extensive applications, such as weather forecasting, anomaly detection, and action recognition. This paper focuses on temporal variation modeling, which is the common key problem of extensive analysis tasks. Previous methods attempt to accomplish this directly from the 1D time series, which is extremely challenging due to the intricate temporal patterns. Based on the observation of multi-periodicity in time series, we ravel out the complex temporal variations into the multiple intraperiod- and interperiod-variations. To tackle the limitations of 1D time series in representation capability, we extend the analysis of temporal variations into the 2D space by transforming the 1D time series into a set of 2D tensors based on multiple periods. This transformation can embed the intraperiod- and interperiod-variations into the columns and rows of the 2D tensors respectively, making the 2D-variations to be easily modeled by 2D kernels. Technically, we propose the TimesNet with TimesBlock as a task-general backbone for time series analysis. TimesBlock can discover the multi-periodicity adaptively and extract the complex temporal variations from transformed 2D tensors by a parameter-efficient inception block. Our proposed TimesNet achieves consistent state-of-the-art in five mainstream time series analysis tasks, including short- and long-term forecasting, imputation, classification, and anomaly detection. Code is available at this repository: https://github.com/thuml/TimesNet.\", \"extraction\": \"verbatim abstract/note; no full-text reasoning\", \"missing\": [\"training recipe\", \"verified hyperparameters\", \"official code commit\"]}, {\"paper_id\": \"2507.20008v1\", \"title\": \"Robust Taxi Fare Prediction Under Noisy Conditions: A Comparative Study of GAT, TimesNet, and XGBoost\", \"url\": \"http://arxiv.org/abs/2507.20008v1\", \"source\": \"live_arxiv_abstract\", \"method_evidence\": \"Precise fare prediction is crucial in ride-hailing platforms and urban mobility systems. This study examines three machine learning models-Graph Attention Networks (GAT), XGBoost, and TimesNet to evaluate their predictive capabilities for taxi fares using a real-world dataset comprising over 55 million records. Both raw (noisy) and denoised versions of the dataset are analyzed to assess the impact of data quality on model performance. The study evaluated the models along multiple axes, including predictive accuracy, calibration, uncertainty estimation, out-of-distribution (OOD) robustness, and feature sensitivity. We also explore pre-processing strategies, including KNN imputation, Gaussian noise injection, and autoencoder-based denoising. The study reveals critical differences between classical and deep learning models under realistic conditions, offering practical guidelines for building robust and scalable models in urban fare prediction systems.\", \"extraction\": \"verbatim abstract/note; no full-text reasoning\", \"missing\": [\"training recipe\", \"verified hyperparameters\", \"official code commit\"]}, {\"paper_id\": \"2512.04694v3\", \"title\": \"TimesNet-Gen: Deep Learning-based Site Specific Strong Motion Generation\", \"url\": \"http://arxiv.org/abs/2512.04694v3\", \"source\": \"live_arxiv_abstract\", \"method_evidence\": \"Effective earthquake risk reduction relies on accurate site-specific evaluations, which require models capable of representing the influence of local site conditions on ground motion characteristics. We address strong ground motion generation from time-domain accelerometer records and introduce the TimesNet-Gen, a deep generative framework. In this framework, site-specific generation is directly achieved through a station-restricted, Dirichlet-based latent space resampling strategy, without relying on explicit conditioning inputs or dimensionality reduction. Pre-trained on the AFAD dataset via self-supervised learning, the frozen model demonstrates robust cross-regional generalization by successfully generating station-specific NGA-West2 records without any fine-tuning. Model performance is evaluated by comparing the distributions of generated and real records in the log-HVSR space, alongside the joint analysis of peak ground acceleration and fundamental site frequency. As a baseline, we construct a spectrogram-based conditional variational autoencoder (CVAE) explicitly formulated for station-specific latent space modeling. The results show strong station-wise alignment, consistent cross-regional ground motion synthesis, and a favorable comparison with a spectrogram-based conditional variational autoencoder baseline, demonstrating that the model empirically maintains the essential physical coupling between frequency content and peak amplitude. Our codes are available via https://github.com/brsylmz23/TimesNet-Gen.\", \"extraction\": \"verbatim abstract/note; no full-text reasoning\", \"missing\": [\"training recipe\", \"verified hyperparameters\", \"official code commit\"]}]"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "direction": "request",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 5,
+      "method": "tools/call",
+      "params": {
+        "name": "configure_experiment",
+        "arguments": {
+          "seed": 44,
+          "context": 12,
+          "horizon": 6,
+          "ridge": 0.1
+        }
+      }
+    }
+  },
+  {
+    "direction": "response",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 5,
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"seed\": 44, \"context\": 12, \"horizon\": 6, \"ridge\": 0.1}"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "direction": "request",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 6,
+      "method": "tools/call",
+      "params": {
+        "name": "python_experiment",
+        "arguments": {}
+      }
+    }
+  },
+  {
+    "direction": "response",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 6,
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"dataset\": \"synthetic_periodic_v1\", \"config\": {\"seed\": 44, \"context\": 12, \"horizon\": 6, \"ridge\": 0.1}, \"normalization\": {\"mean\": 0.014452039591007342, \"std\": 0.745843409841203}, \"split_samples\": {\"train\": 1080, \"val\": 360, \"test\": 360}, \"windows\": {\"train\": 178, \"val\": 58, \"test\": 58}, \"validation\": {\"persistence\": {\"mse\": 0.3843581964611202, \"mae\": 0.4813673603037625}, \"ridge_ar\": {\"mse\": 0.06284037584863582, \"mae\": 0.1945227662322955}}, \"test\": {\"persistence\": {\"mse\": 0.41280136738978673, \"mae\": 0.5026823452743373}, \"ridge_ar\": {\"mse\": 0.06574576177730153, \"mae\": 0.20997726356310228}}, \"selected_on_validation\": \"ridge_ar\", \"limitations\": [\"Synthetic data only; not a paper reproduction.\", \"Single seed; no statistical significance claim.\", \"Ridge autoregression is not PatchTST or another foundation model.\"]}"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "direction": "request",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 7,
+      "method": "tools/call",
+      "params": {
+        "name": "experiment_summary",
+        "arguments": {}
+      }
+    }
+  },
+  {
+    "direction": "response",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 7,
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "KeyError: 'evaluation'"
+          }
+        ],
+        "isError": true
+      }
+    }
+  },
+  {
+    "direction": "request",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 8,
+      "method": "tools/call",
+      "params": {
+        "name": "evaluation",
+        "arguments": {}
+      }
+    }
+  },
+  {
+    "direction": "response",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 8,
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"mse_reduction_vs_persistence\": 0.8407326938061684, \"selected_on_validation\": \"ridge_ar\", \"scope\": \"Only this synthetic dataset and seed; unrelated to cited paper performance.\"}"
+          }
+        ],
+        "isError": false
+      }
+    }
+  },
+  {
+    "direction": "request",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 9,
+      "method": "tools/call",
+      "params": {
+        "name": "experiment_summary",
+        "arguments": {}
+      }
+    }
+  },
+  {
+    "direction": "response",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 9,
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "\"# Research Agent 实验报告\\n\\n本次运行真实执行了 Python 合成数据实验；论文笔记用于研究背景，未复现所引用论文模型。\\n\\n## 文献来源\\n\\n- [TimesNet: Temporal 2D-Variation Modeling for General Time Series Analysis](http://arxiv.org/abs/2210.02186v3) — `live_arxiv_abstract`\\n  - 方法证据：Time series analysis is of immense importance in extensive applications, such as weather forecasting, anomaly detection, and action recognition. This paper focuses on temporal variation modeling, which is the common key problem of extensive analysis tasks. Previous methods attempt to accomplish this directly from the 1D time series, which is extremely challenging due to the intricate temporal patterns. Based on the observation of multi-periodicity in time series, we ravel out the complex temporal variations into the multiple intraperiod- and interperiod-variations. To tackle the limitations of 1D time series in representation capability, we extend the analysis of temporal variations into the 2D space by transforming the 1D time series into a set of 2D tensors based on multiple periods. This transformation can embed the intraperiod- and interperiod-variations into the columns and rows of the 2D tensors respectively, making the 2D-variations to be easily modeled by 2D kernels. Technically, we propose the TimesNet with TimesBlock as a task-general backbone for time series analysis. TimesBlock can discover the multi-periodicity adaptively and extract the complex temporal variations from transformed 2D tensors by a parameter-efficient inception block. Our proposed TimesNet achieves consistent state-of-the-art in five mainstream time series analysis tasks, including short- and long-term forecasting, imputation, classification, and anomaly detection. Code is available at this repository: https://github.com/thuml/TimesNet.\\n- [Robust Taxi Fare Prediction Under Noisy Conditions: A Comparative Study of GAT, TimesNet, and XGBoost](http://arxiv.org/abs/2507.20008v1) — `live_arxiv_abstract`\\n  - 方法证据：Precise fare prediction is crucial in ride-hailing platforms and urban mobility systems. This study examines three machine learning models-Graph Attention Networks (GAT), XGBoost, and TimesNet to evaluate their predictive capabilities for taxi fares using a real-world dataset comprising over 55 million records. Both raw (noisy) and denoised versions of the dataset are analyzed to assess the impact of data quality on model performance. The study evaluated the models along multiple axes, including predictive accuracy, calibration, uncertainty estimation, out-of-distribution (OOD) robustness, and feature sensitivity. We also explore pre-processing strategies, including KNN imputation, Gaussian noise injection, and autoencoder-based denoising. The study reveals critical differences between classical and deep learning models under realistic conditions, offering practical guidelines for building robust and scalable models in urban fare prediction systems.\\n- [TimesNet-Gen: Deep Learning-based Site Specific Strong Motion Generation](http://arxiv.org/abs/2512.04694v3) — `live_arxiv_abstract`\\n  - 方法证据：Effective earthquake risk reduction relies on accurate site-specific evaluations, which require models capable of representing the influence of local site conditions on ground motion characteristics. We address strong ground motion generation from time-domain accelerometer records and introduce the TimesNet-Gen, a deep generative framework. In this framework, site-specific generation is directly achieved through a station-restricted, Dirichlet-based latent space resampling strategy, without relying on explicit conditioning inputs or dimensionality reduction. Pre-trained on the AFAD dataset via self-supervised learning, the frozen model demonstrates robust cross-regional generalization by successfully generating station-specific NGA-West2 records without any fine-tuning. Model performance is evaluated by comparing the distributions of generated and real records in the log-HVSR space, alongside the joint analysis of peak ground acceleration and fundamental site frequency. As a baseline, we construct a spectrogram-based conditional variational autoencoder (CVAE) explicitly formulated for station-specific latent space modeling. The results show strong station-wise alignment, consistent cross-regional ground motion synthesis, and a favorable comparison with a spectrogram-based conditional variational autoencoder baseline, demonstrating that the model empirically maintains the essential physical coupling between frequency content and peak amplitude. Our codes are available via https://github.com/brsylmz23/TimesNet-Gen.\\n\\n## 实验配置\\n\\n```json\\n{\\n  \\\"seed\\\": 44,\\n  \\\"context\\\": 12,\\n  \\\"horizon\\\": 6,\\n  \\\"ridge\\\": 0.1\\n}\\n```\\n\\n数据：`synthetic_periodic_v1`；先切分时间轴，再构造窗口；仅用训练段拟合归一化。\\n窗口数量：{'train': 178, 'val': 58, 'test': 58}。\\n\\n| 模型 | Validation MSE | Test MSE | Test MAE |\\n|---|---:|---:|---:|\\n| persistence | 0.384358 | 0.412801 | 0.502682 |\\n| ridge_ar | 0.062840 | 0.065746 | 0.209977 |\\n\\n验证集选出的模型：`ridge_ar`。\\nRidge AR 相对 persistence 的测试 MSE 降幅：84.07%。\\n\\n## 局限\\n\\n- Synthetic data only; not a paper reproduction.\\n- Single seed; no statistical significance claim.\\n- Ridge autoregression is not PatchTST or another foundation model.\\n\""
+          }
+        ],
+        "isError": false
+      }
+    }
+  }
+]

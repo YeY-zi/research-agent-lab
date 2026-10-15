@@ -1,37 +1,40 @@
 # 实际验证记录
 
-日期：2026-10-15；Python 3.12，运行无需第三方依赖。
+日期：2026-10-15。
 
-## 通过
+## 本次真实模型实验
 
-- `python -m unittest discover -s tests -v`：5/5 通过。
-- 离线演示：六步全部执行；输出保存在 `examples/demo/`。
-- 真实 arXiv API：在命令获网络权限后，六步全部执行；输出保存在 `examples/live-arxiv/`。
-- 独立 MCP 子进程测试：initialize、notifications/initialized、tools/list 与六次 tools/call。
-- LLM 调度测试：使用模拟 API 返回的 function calls，确实调用本地工具、训练和生成报告；不是一次真实 LLM 调用。
-- 测试覆盖非法工具/参数拒绝、前置状态要求、上下文失效、固定种子可重复，以及报告数字与结果一致。
+[完整报告及原始产物](results/local-mcp-20261015/REPORT.md)
 
-## 实测配置与结果
+- 模型 Qwen/Qwen3-0.6B，固定 revision c1899de289a04d12100db370d81485cdf75e47ca。
+- 本地 CPU float32、2 个线程、greedy decoding，关闭 thinking；不是模拟 API 返回。
+- 三个预定义任务，所有任务均通过真实 arXiv API 和真实 stdio MCP 子进程执行。
+- 固定流程：3/3 完成，工具 18/18 成功，平均 1.577964 秒。
+- 本地 LLM：3/3 完成，工具 18/21 成功，3 次被拒绝，平均 132.048513 秒；共 21 轮模型推理。
+- 3 次错误均为跳过 evaluation，提前请求 experiment_summary；MCP 拒绝后，模型自行补调评价并完成任务。
+- 配置匹配 3/3，指标独立重算一致 3/3；相同任务两组的全部数值结果相同。
+- 模型 token 数为每轮输入与输出 token 累加，共 43,602；本地推理无外部模型 API 账单。
+- 任务计时包含模型推理、工具和网络，排除首次下载/模型加载及 MCP 初始化；模型加载时间另外记录。
 
-数据 synthetic_periodic_v1；seed=42；context=24；horizon=6；ridge=1.0。
+## 保留的启动失败
 
-| 模型 | Test MSE | Test MAE |
-|---|---:|---:|
-| Persistence | 0.4269270926 | 0.5094125022 |
-| Ridge AR | 0.0144845516 | 0.0977503629 |
+初次启动使用了 Transformers 5.19.0 已移除的 config._commit_hash 私有属性，模型元数据初始化中断，没有执行任何任务。随后改用固定 Hugging Face 模型快照目录记录 revision；保持任务与提示不变重新启动。原始失败日志位于 results/local-mcp-20261015/setup-failure/。
 
-联网和离线运行使用相同固定实验，所以指标一致；论文检索结果不会自动变成对应论文的模型代码。
+## 软件验证
 
-## 未验证 / 未实现
+- 7 项 unittest 通过，包括默认演示、模拟外部 API、原始 MCP 协议、新 MCP 客户端、非法调用及本地模型输出解析。
+- 原始 model-trace、tool-attempts 与 MCP 请求次数互相核对一致。
+- 每个已执行实验均按记录配置独立重算数值；两个调度器的同任务 metrics.json 完全一致。
+- 模型权重、缓存与任何凭证未上传；软件版本在实验目录 environment.txt。
+- 早期 GitHub Actions 已有通过记录，本次提交后的远端 CI 状态以 Actions 页面为准；CI 不会下载和运行真实模型。
 
-- 真实 LLM API 调用、模型规划成功率、token 成本统计。
-- 桌面 MCP 客户端兼容性；当前只有自有 stdio 协议集成测试。
-- 论文全文解析、准确超参数提取、公开数据 benchmark 和论文原始指标复现。
+## 边界
 
+- 系统提示已指定工具顺序，是受约束的工具调度，尚非开放式自主科研规划。
+- 只验证 3 个任务，没有任务顺序随机化或通用能力/统计显著性结论。
+- 检索通过标准为非空实时证据，不等同于精确命中原论文或高检索相关性。
+- 方法证据保留为摘要文本，没有全文方法理解或超参数正确性验证。
+- Python 部分使用合成周期信号和 Ridge AR，不是所检索论文模型的复现。
+- 未验证外部 OpenAI API 真实调用、桌面 MCP 客户端、Windows 原生管道客户端、任意代码执行或科研效率提升。
 
-初次联网被命令网络沙箱拒绝，授权联网重试成功。失败记录保存在本地 runs/，未当作成功示例。
-
-## GitHub 验证
-
-项目已上传 https://github.com/YeY-zi/research-agent-lab 。GitHub Actions 在 Python 3.10 和 3.12 上的测试及 demo 均通过：
-https://github.com/YeY-zi/research-agent-lab/actions/runs/38735757598
+初始原型、补充代码、本次云端运行与报告由 AI 助手完成，维护者需独立理解和复跑。

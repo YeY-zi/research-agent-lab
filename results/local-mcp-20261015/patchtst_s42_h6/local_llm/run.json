@@ -1,0 +1,41 @@
+{
+  "task_id": "patchtst_s42_h6",
+  "controller": "local_llm",
+  "status": "completed",
+  "error": null,
+  "prompt": "Search arXiv for PatchTST. Extract the returned method evidence. Configure and run the allowlisted synthetic periodic forecasting experiment using exactly {\"seed\": 42, \"context\": 24, \"horizon\": 6, \"ridge\": 1.0}. Evaluate the measured results and create experiment_summary. Do not reproduce or claim to implement the retrieved paper. Call one tool at a time in the required workflow order.",
+  "expected_config": {
+    "seed": 42,
+    "context": 24,
+    "horizon": 6,
+    "ridge": 1.0
+  },
+  "elapsed_seconds": 131.0337057780016,
+  "workflow_completed": true,
+  "config_match": true,
+  "nonempty_live_evidence": true,
+  "numerically_reproduced": true,
+  "task_success": true,
+  "model_rounds": 7,
+  "successful_tool_calls": 6,
+  "failed_tool_calls": 1,
+  "attempted_tool_calls": 7,
+  "parse_failures": 0,
+  "prompt_tokens": 14589,
+  "completion_tokens": 144,
+  "arxiv_ids": [
+    "2510.21282v1",
+    "2408.16707v1",
+    "2501.08620v4"
+  ],
+  "test": {
+    "persistence": {
+      "mse": 0.4269270926177819,
+      "mae": 0.5094125021966802
+    },
+    "ridge_ar": {
+      "mse": 0.014484551638720653,
+      "mae": 0.09775036291566568
+    }
+  }
+}

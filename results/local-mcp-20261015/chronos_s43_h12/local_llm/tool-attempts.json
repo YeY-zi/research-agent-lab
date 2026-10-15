@@ -1,0 +1,52 @@
+[
+  {
+    "tool": "paper_search",
+    "arguments": {
+      "query": "Chronos time series"
+    },
+    "ok": true,
+    "seconds": 1.4659074939991115
+  },
+  {
+    "tool": "method_extraction",
+    "arguments": {},
+    "ok": true,
+    "seconds": 0.00033209199682460167
+  },
+  {
+    "tool": "configure_experiment",
+    "arguments": {
+      "seed": 43,
+      "context": 24,
+      "horizon": 12,
+      "ridge": 1.0
+    },
+    "ok": true,
+    "seconds": 0.0003937049987143837
+  },
+  {
+    "tool": "python_experiment",
+    "arguments": {},
+    "ok": true,
+    "seconds": 0.014693245997477788
+  },
+  {
+    "tool": "experiment_summary",
+    "arguments": {},
+    "ok": false,
+    "error": "ValueError: KeyError: 'evaluation'",
+    "seconds": 0.0002930230002675671
+  },
+  {
+    "tool": "evaluation",
+    "arguments": {},
+    "ok": true,
+    "seconds": 0.00023706800129730254
+  },
+  {
+    "tool": "experiment_summary",
+    "arguments": {},
+    "ok": true,
+    "seconds": 0.0022037220005586278
+  }
+]

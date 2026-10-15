@@ -1,0 +1,7 @@
+{
+  "stage": "model_metadata_initialization",
+  "code_revision": "39f6ba1",
+  "error": "AttributeError: Qwen3Config has no _commit_hash in transformers 5.19.0",
+  "model_tool_calls": 0,
+  "resolution": "Resolve immutable revision from downloaded Hugging Face snapshot directory; keep all tasks unchanged."
+}

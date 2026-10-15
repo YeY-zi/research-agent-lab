@@ -1,0 +1,87 @@
+[
+  {
+    "raw_output": "<tool_call>\n{\"name\": \"paper_search\", \"arguments\": {\"query\": \"Chronos time series\"}}\n</tool_call>",
+    "prompt_tokens": 702,
+    "completion_tokens": 23,
+    "seconds": 8.142872063999675,
+    "round": 1,
+    "parsed": true,
+    "tool": "paper_search",
+    "arguments": {
+      "query": "Chronos time series"
+    },
+    "tool_ok": true
+  },
+  {
+    "raw_output": "<tool_call>\n{\"name\": \"method_extraction\", \"arguments\": {}}\n</tool_call>",
+    "prompt_tokens": 1346,
+    "completion_tokens": 16,
+    "seconds": 11.397993844999291,
+    "round": 2,
+    "parsed": true,
+    "tool": "method_extraction",
+    "arguments": {},
+    "tool_ok": true
+  },
+  {
+    "raw_output": "<tool_call>\n{\"name\": \"configure_experiment\", \"arguments\": {\"seed\": 43, \"context\": 24, \"horizon\": 12, \"ridge\": 1.0}}\n</tool_call>",
+    "prompt_tokens": 2088,
+    "completion_tokens": 44,
+    "seconds": 22.701056821002567,
+    "round": 3,
+    "parsed": true,
+    "tool": "configure_experiment",
+    "arguments": {
+      "seed": 43,
+      "context": 24,
+      "horizon": 12,
+      "ridge": 1.0
+    },
+    "tool_ok": true
+  },
+  {
+    "raw_output": "<tool_call>\n{\"name\": \"python_experiment\", \"arguments\": {}}\n</tool_call>",
+    "prompt_tokens": 2182,
+    "completion_tokens": 16,
+    "seconds": 18.31412267199994,
+    "round": 4,
+    "parsed": true,
+    "tool": "python_experiment",
+    "arguments": {},
+    "tool_ok": true
+  },
+  {
+    "raw_output": "<tool_call>\n{\"name\": \"experiment_summary\", \"arguments\": {}}\n</tool_call>",
+    "prompt_tokens": 2630,
+    "completion_tokens": 16,
+    "seconds": 22.31035097900167,
+    "round": 5,
+    "parsed": true,
+    "tool": "experiment_summary",
+    "arguments": {},
+    "tool_ok": false,
+    "tool_error": "ValueError: KeyError: 'evaluation'"
+  },
+  {
+    "raw_output": "<tool_call>\n{\"name\": \"evaluation\", \"arguments\": {}}\n</tool_call>",
+    "prompt_tokens": 2676,
+    "completion_tokens": 15,
+    "seconds": 22.269139105999784,
+    "round": 6,
+    "parsed": true,
+    "tool": "evaluation",
+    "arguments": {},
+    "tool_ok": true
+  },
+  {
+    "raw_output": "<tool_call>\n{\"name\": \"experiment_summary\", \"arguments\": {}}\n</tool_call>",
+    "prompt_tokens": 2765,
+    "completion_tokens": 16,
+    "seconds": 24.91958109299958,
+    "round": 7,
+    "parsed": true,
+    "tool": "experiment_summary",
+    "arguments": {},
+    "tool_ok": true
+  }
+]

@@ -1,0 +1,21 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:   0%|          | 1/311 [00:01<05:23,  1.04s/it]Loading weights:   1%|          | 2/311 [00:02<06:19,  1.23s/it]Loading weights: 100%|██████████| 311/311 [00:02<00:00, 126.80it/s]
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/workspace/research-agent/research_agent/benchmark.py", line 145, in <module>
+    if __name__ == '__main__': main()
+                               ^^^^^^
+  File "/workspace/research-agent/research_agent/benchmark.py", line 128, in main
+    backend=LocalQwen(revision=args.revision,cache_dir=args.model_cache)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/research-agent/research_agent/local_llm.py", line 47, in __init__
+    'revision':self.model.config._commit_hash,'dtype':'float32','device':'cpu','threads':threads,
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/ecg-tsfm/.venv/lib/python3.12/site-packages/transformers/configuration_utils.py", line 525, in __getattribute__
+    return super().__getattribute__(key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/ecg-tsfm/.venv/lib/python3.12/site-packages/transformers/integrations/heterogeneity/configuration_utils.py", line 312, in __getattribute__
+    return super().__getattribute__(key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Qwen3Config' object has no attribute '_commit_hash'
